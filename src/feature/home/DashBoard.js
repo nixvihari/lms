@@ -1,9 +1,10 @@
 import React from 'react';
 
 const DashBoard = () => {
+    
     return (
         <div>
-            this is teacher dashboard
+            the dashboard.......
         </div>
     );
 }

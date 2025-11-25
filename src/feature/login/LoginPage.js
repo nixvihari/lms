@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import InputField from "../components/InputField";
-import PasswordField from "../components/PasswordField";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import LoginForm from "./LoginForm";
+
 
 export function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -28,13 +28,12 @@ export function LoginPage() {
       }
 
       const token = Math.random().toString(36).substring(2);
-
       localStorage.setItem("user", JSON.stringify({ token }));
 
       if (foundUser.role === "teacher") {
-        navigate("/teacher/dashboard");
+        navigate("/dashboard");
       } else {
-        navigate("/student/dashboard");
+        navigate("/dashboard");
       }
 
     } catch (error) {
@@ -45,16 +44,16 @@ export function LoginPage() {
 
   return (
     <div className="min-h-screen flex">
-      
-      {/* LEFT SIDE */}
+
+      {/* LEFT SIDE (same as original) */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-500 to-blue-600 p-12 flex-col justify-center items-center text-white">
         <div className="max-w-md text-center space-y-6">
-
           <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
               viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
               className="w-10 h-10">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6V4.5M12 6v13.5m0-13.5H8.25A2.25 2.25 0 006 8.25v10.5M12 6h3.75A2.25 2.25 0 0118 8.25v10.5M6 18.75h12" />
+              <path strokeLinecap="round" strokeLinejoin="round"
+                d="M12 6V4.5M12 6v13.5m0-13.5H8.25A2.25 2.25 0 006 8.25v10.5M12 6h3.75A2.25 2.25 0 0118 8.25v10.5M6 18.75h12" />
             </svg>
           </div>
 
@@ -79,7 +78,8 @@ export function LoginPage() {
               <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 24 24" strokeWidth="1.5" stroke="white"
                 className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6V4.5M12 6v13.5m0-13.5H8.25A2.25 2.25 0 006 8.25v10.5M12 6h3.75A2.25 2.25 0 0118 8.25v10.5M6 18.75h12" />
+                <path strokeLinecap="round" strokeLinejoin="round"
+                  d="M12 6V4.5M12 6v13.5m0-13.5H8.25A2.25 2.25 0 006 8.25v10.5M12 6h3.75A2.25 2.25 0 0118 8.25v10.5M6 18.75h12" />
               </svg>
             </div>
             <span className="text-gray-800 text-xl font-semibold">CloudLMS</span>
@@ -90,41 +90,17 @@ export function LoginPage() {
             <p className="text-gray-500">Enter your credentials to access your dashboard</p>
           </div>
 
-          {/* FORM */}
-          <form onSubmit={handleLogin} className="space-y-6">
-
-            {/* Email Field */}
-            <InputField
-              label="Email address"
-              type="email"
-              placeholder="name@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-
-            {/* Password Field */}
-            <PasswordField
-              label="Password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            {/* Remember me */}
-            <div className="flex items-center space-x-2">
-              <input type="checkbox" className="w-4 h-4" />
-              <label className="text-gray-500 cursor-pointer">Remember me for 30 days</label>
-            </div>
-
-            {/* Submit button */}
-            <button className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white rounded-md">
-              Sign in
-            </button>
-
-          </form>
+          {/* ⬇️ Login Form Component */}
+          <LoginForm
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            handleLogin={handleLogin}
+          />
 
           <p className="text-center text-gray-500">
-            Don’t have an account?{' '}
+            Don’t have an account?{" "}
             <Link to="/" className="text-blue-500 hover:text-blue-600">Sign up</Link>
           </p>
 
