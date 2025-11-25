@@ -25,18 +25,13 @@ export function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userData = {
-      fullName: formData.fullName,
-      email: formData.email,
-      role: formData.role,
-      password: formData.password,
-    };
+    
 
     try {
       const res = await fetch('https://6925375e82b59600d722bc2a.mockapi.io/users/user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(formData),
       });
 
       if (res.ok) {
@@ -49,7 +44,7 @@ export function RegisterPage() {
 
       // Navigate with replace
       navigate('/signin', { replace: true });
-      
+
       } else {
         alert('Registration failed');
       }
