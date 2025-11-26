@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import RegistrationForm from "./RegistrationForm";
+import axios from "axios";
+import api from "../../api/api";
 
 
 export function RegistrationPage() {
@@ -10,6 +12,9 @@ export function RegistrationPage() {
     role: "",
     password: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -21,32 +26,30 @@ export function RegistrationPage() {
     { label: "Contains special character", valid: /[!@#$%^&*]/.test(formData.password) },
   ];
 
+
+  const registrationUrl = "/register";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const res = await fetch("https://6925375e82b59600d722bc2a.mockapi.io/users/user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (res.ok) {
+    setLoading(true);
+    api.post(registrationUrl, formData)
+      .then(response => {
+        console.log("Successfully registered")
         setFormData({
           fullName: "",
           email: "",
           role: "",
           password: "",
         });
-
         navigate("/signin", { replace: true });
-      } else {
-        alert("Registration failed");
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong");
-    }
+      })
+      .catch(error => {
+        setError("Error. Failed to register")
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -133,6 +136,9 @@ export function RegistrationPage() {
             passwordRules={passwordRules}
             handleSubmit={handleSubmit}
           />
+
+          {loading && <p style={{ textAlign: 'center' }}>Loading...</p>}
+          {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
 
           <p className="text-center text-gray-500">
             Already have an account?{" "}
