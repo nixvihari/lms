@@ -1,6 +1,3 @@
-// src/components/RegistrationForm.jsx
-
-
 import { Link } from "react-router-dom";
 import InputField from "../../common_components/InputField";
 import PasswordField from "../../common_components/PasswordField";

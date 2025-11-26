@@ -1,5 +1,3 @@
-// src/pages/RegisterPage.jsx
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import RegistrationForm from "./RegistrationForm";
@@ -128,7 +126,7 @@ export function RegistrationPage() {
             </p>
           </div>
 
-          {/* ⬇️ FORM COMPONENT HERE */}
+          {/* FORM COMPONENT HERE */}
           <RegistrationForm
             formData={formData}
             setFormData={setFormData}

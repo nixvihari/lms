@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RegistrationPage } from './feature/registration/RegistrationPage';
 import { LoginPage } from './feature/login/LoginPage';
 import DashBoard from './feature/home/DashBoard';
+import CoursePage from './feature/student/pages/CoursePage';
+import CourseDetail from './feature/student/pages/CourseDetail';
 
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
         <Route path="/" element={<RegistrationPage/>} />
         <Route path="/signin" element={<LoginPage/>} />
         <Route path="/dashboard" element={<DashBoard/>} />
+        <Route path="/coursepage" element={<CoursePage/>}/>
+        <Route path="/course/:id" element={<CourseDetail />} />
       </Routes>
     </BrowserRouter>
   );
