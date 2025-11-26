@@ -33,6 +33,7 @@ export function RegistrationPage() {
     e.preventDefault();
 
     setLoading(true);
+    setError("");
     api.post(registrationUrl, formData)
       .then(response => {
         console.log("Successfully registered")
@@ -137,7 +138,11 @@ export function RegistrationPage() {
             handleSubmit={handleSubmit}
           />
 
-          {loading && <p style={{ textAlign: 'center' }}>Loading...</p>}
+          {loading &&
+            <div id='loader' className='flex justify-center items-center h-10'>
+              <div className='w-9 h-9 border-4 border-blue-500 border-t-transparent rounded-full  animate-spin'></div>
+            </div>
+          }
           {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
 
           <p className="text-center text-gray-500">

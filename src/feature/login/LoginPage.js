@@ -17,6 +17,7 @@ export function LoginPage() {
     e.preventDefault();
 
     setLoading(true);
+    setError("");
     api.post("/login", { email, password })
       .then(response => {
         console.log("Sign in Successful.");
@@ -90,7 +91,12 @@ export function LoginPage() {
             handleLogin={handleLogin}
           />
 
-          {loading && <p style={{ textAlign: "center" }} > Loading...</p>}
+          {loading &&
+            <div id='loader' className='flex justify-center items-center h-10'>
+              <div className='w-9 h-9 border-4 border-blue-500 border-t-transparent rounded-full  animate-spin'></div>
+            </div>
+          }
+
           {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
 
           <p className="text-center text-gray-500">
