@@ -13,7 +13,7 @@ export function LoginPage() {
 
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
     setLoading(true);
@@ -21,6 +21,8 @@ export function LoginPage() {
       .then(response => {
         console.log("Sign in Successful.");
         localStorage.setItem("token", response.data.token);
+        setEmail("");
+        setPassword("");
         navigate('/dashboard', { replace: true });
       })
       .catch(error => {
