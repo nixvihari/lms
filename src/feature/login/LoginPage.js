@@ -90,7 +90,7 @@ export function LoginPage() {
             <p className="text-gray-500">Enter your credentials to access your dashboard</p>
           </div>
 
-          {/* ⬇️ Login Form Component */}
+          {/* Login Form Component */}
           <LoginForm
             email={email}
             setEmail={setEmail}
