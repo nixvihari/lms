@@ -1,45 +1,34 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LoginForm from "./LoginForm";
+import api from "../../api/api";
 
 
 export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    try {
-      const res = await fetch("https://6925375e82b59600d722bc2a.mockapi.io/users/user");
-      const users = await res.json();
-
-      const foundUser = users.find((u) => u.email === email);
-
-      if (!foundUser) {
-        alert("User not found");
-        return;
-      }
-
-      if (foundUser.password !== password) {
-        alert("Incorrect password");
-        return;
-      }
-
-      const token = Math.random().toString(36).substring(2);
-      localStorage.setItem("user", JSON.stringify({ token }));
-
-      if (foundUser.role === "teacher") {
-        navigate("/dashboard");
-      } else {
-        navigate("/dashboard");
-      }
-
-    } catch (error) {
-      console.error(error);
-      alert("Login failed");
-    }
+    setLoading(true);
+    api.post("/login", { email, password })
+      .then(response => {
+        console.log("Sign in Successful.");
+        localStorage.setItem("token", response.data.token);
+        navigate('/dashboard', { replace: true });
+      })
+      .catch(error => {
+        setError("Invalid credentials. Failed to sign in.");
+      })
+      .finally(() => {
+        setLoading(false);
+      })
   };
 
   return (
@@ -99,6 +88,9 @@ export function LoginPage() {
             handleLogin={handleLogin}
           />
 
+          {loading && <p style={{ textAlign: "center" }} > Loading...</p>}
+          {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
+
           <p className="text-center text-gray-500">
             Don’t have an account?{" "}
             <Link to="/" className="text-blue-500 hover:text-blue-600">Sign up</Link>
@@ -106,6 +98,6 @@ export function LoginPage() {
 
         </div>
       </div>
-    </div>
+    </div >
   );
 }
