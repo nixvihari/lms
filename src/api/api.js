@@ -23,7 +23,7 @@ api.interceptors.response.use(
     (error) => {
         if (error.response?.status === 401 || error.response?.status === 403) {
             console.log('Unauthorized Redirecting...');
-            <Navigate to="/login" replace/>
+            <Navigate to="/signin" replace/>
         }
         return Promise.reject(error);
     }
