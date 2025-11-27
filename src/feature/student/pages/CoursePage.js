@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import CourseList from "../CourseList";
-import SearchBar from "../SearchBar";
+import CourseList from "../components/CourseList";
+import SearchBar from "../components/SearchBar";
 
 
 export default function CoursePage() {

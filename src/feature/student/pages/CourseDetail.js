@@ -34,7 +34,7 @@ export default function CourseDetail() {
 
       {/* Back Button */}
       <div className="bg-white p-4 border-b">
-        <Link to="/coursepage" className="text-gray-700">← Back to Courses</Link>
+        <Link to="/student/courses" className="text-gray-700">← Back to Courses</Link>
       </div>
 
       {/* HERO BANNER */}
