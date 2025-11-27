@@ -31,9 +31,9 @@ export function LoginPage() {
       localStorage.setItem("user", JSON.stringify({ token }));
 
       if (foundUser.role === "teacher") {
-        navigate("/dashboard");
+        navigate("/student");
       } else {
-        navigate("/dashboard");
+        navigate("/student");
       }
 
     } catch (error) {
