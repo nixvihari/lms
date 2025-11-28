@@ -1,64 +1,92 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../../../api/api";
+import Loader from "../../../common_components/Loader";
 
 export default function StudentProfile() {
   const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState(false);
-  const [showContact, setShowContact] = useState(false); 
-  const [student, setStudent] = useState(null);
+  const [showContact, setShowContact] = useState(false);
+  const [student, setStudent] = useState({ id: '', name: '', email: '', about: '' });
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
 
   const API_URL = "https://jsonplaceholder.typicode.com/users/1";
 
+  // useEffect(() => {
+  //   async function fetchStudent() {
+  //     try {
+  //       const response = await fetch(API_URL);
+
+  //       if (!response.ok) throw new Error("Failed to fetch data");
+
+  //       const data = await response.json();
+
+  //       setStudent({
+  //         id: data.id || "STU000",
+  //         name: data.name || "Unknown Student",
+  //         email: data.email || "noemail@example.com",
+  //         about:
+  //           "I am passionate about Web Development, UI/UX Design, and 3D Animation. Always learning and exploring new technologies.",
+  //       });
+  //     } catch (err) {
+  //       setError(err.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+
+  //   fetchStudent();
+  // }, []);
+
   useEffect(() => {
-    async function fetchStudent() {
-      try {
-        const response = await fetch(API_URL);
+    setError('');
+    setLoading(true);
 
-        if (!response.ok) throw new Error("Failed to fetch data");
+    const getUserProfileUrl = `${process.env.REACT_APP_API_BASE_URL}${process.env.REACT_APP_API_GET_USER_PROFILE}`
 
-        const data = await response.json();
-
+    api.get(getUserProfileUrl)
+      .then((response) => {
+        console.log(response.data)
         setStudent({
-          id: data.id || "STU000",
-          name: data.name || "Unknown Student",
-          email: data.email || "noemail@example.com",
-          about:
-            "I am passionate about Web Development, UI/UX Design, and 3D Animation. Always learning and exploring new technologies.",
-        });
-      } catch (err) {
-        setError(err.message);
-      } finally {
+          id: response.data.id,
+          name: response.data.name,
+          email: response.data.email,
+          about: ''
+        })
+      })
+      .catch((error) => {
+        setError('Failed to fetch Profile')
+      })
+      .finally(() => {
         setLoading(false);
-      }
-    }
-
-    fetchStudent();
+      });
   }, []);
 
-  if (loading)
-    return <p className="p-6 text-lg">Loading student data...</p>;
+  // if (loading)
+  //   return <p className="p-6 text-lg">Loading student data...</p>;
 
-  if (error)
-    return (
-      <p className="p-6 text-red-600 font-semibold">
-         Error: {error}
-      </p>
-    );
+  // if (error)
+  //   return (
+  //     <p className="p-6 text-red-600 font-semibold">
+  //       Error: {error}
+  //     </p>
+  //   );
 
-    const handleLogout = () => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('role');
-      localStorage.removeItem('userId');
-      localStorage.setItem('isLoggedIn', false);
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('userId');
+    localStorage.setItem('isLoggedIn', false);
 
 
-      navigate('/signin');
-    }
+    navigate('/signin');
+  }
 
   return (
+
     <div className="min-h-screen bg-slate-100 py-10 relative">
+      {loading && <Loader />}
 
       {/*BACK BUTTON */}
       {/* <button
