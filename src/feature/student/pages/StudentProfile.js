@@ -11,7 +11,7 @@ export default function StudentProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const API_URL = "https://jsonplaceholder.typicode.com/users/1";
+  // const API_URL = "https://jsonplaceholder.typicode.com/users/1";
 
   // useEffect(() => {
   //   async function fetchStudent() {
@@ -135,6 +135,8 @@ export default function StudentProfile() {
               </p>
             </div>
           )}
+
+          {error && <p style={{color: 'red', textAlign: 'center'}}>{error}</p>}
         </div>
 
         {/* CONTACT SUPPORT */}
