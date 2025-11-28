@@ -22,9 +22,24 @@ export function LoginPage() {
       .then(response => {
         console.log("Sign in Successful.");
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("role", response.data.role);
+        localStorage.setItem("userId", response.data.userId);
+        localStorage.setItem("isLoggedIn", true);
+
         setEmail("");
         setPassword("");
-        navigate('/dashboard', { replace: true });
+
+        if (localStorage.getItem('role') === 'student') {
+          navigate('/student/dashboard', { replace: true });
+        }
+
+        if (localStorage.getItem('role') === 'teacher') {
+          navigate('/teacher/dashboard', { replace: true });
+        }
+
+        if (localStorage.getItem('role') === 'admin') {
+          navigate('/admin/dashboard', { replace: true })
+        }
       })
       .catch(error => {
         setError("Invalid credentials. Failed to sign in.");

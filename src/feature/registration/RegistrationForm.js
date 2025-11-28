@@ -11,7 +11,7 @@ export default function RegistrationForm({ formData, setFormData, passwordRules,
         type="text"
         placeholder="John Doe"
         value={formData.fullName}
-        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
       />
 
       <InputField

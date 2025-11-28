@@ -5,8 +5,9 @@ import api from "../../api/api";
 
 
 export function RegistrationPage() {
+
   const [formData, setFormData] = useState({
-    fullName: "",
+    name: "",
     email: "",
     role: "",
     password: "",
@@ -37,7 +38,7 @@ export function RegistrationPage() {
       .then(response => {
         console.log("Successfully registered")
         setFormData({
-          fullName: "",
+          name: "",
           email: "",
           role: "",
           password: "",

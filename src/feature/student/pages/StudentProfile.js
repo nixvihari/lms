@@ -47,6 +47,16 @@ export default function StudentProfile() {
       </p>
     );
 
+    const handleLogout = () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('role');
+      localStorage.removeItem('userId');
+      localStorage.setItem('isLoggedIn', false);
+
+
+      navigate('/signin');
+    }
+
   return (
     <div className="min-h-screen bg-slate-100 py-10 relative">
 
@@ -127,7 +137,7 @@ export default function StudentProfile() {
         {/* LOGOUT BUTTON */}
         <div className="text-center">
           <button
-            onClick={() => navigate('/signin') }
+            onClick={handleLogout}
             className="w-full md:w-64 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md"
           >
             Logout

@@ -48,6 +48,7 @@ import { RegistrationPage } from "./feature/registration/RegistrationPage";
 
 
 function App() {
+  localStorage.setItem('isLoggedIn', false);
   return (
     <Routes>
 
