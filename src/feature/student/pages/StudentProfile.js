@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../../api/api";
 import Loader from "../../../common_components/Loader";
+import useUserProfile from "../../../hooks/useUserProfile";
 
 export default function StudentProfile() {
   const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState(false);
   const [showContact, setShowContact] = useState(false);
-  const [student, setStudent] = useState({ id: '', name: '', email: '', about: '' });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const {student, loading, error} = useUserProfile();
+
+  // const [student, setStudent] = useState({ id: '', name: '', email: '', about: '' });
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState('');
 
   // const API_URL = "https://jsonplaceholder.typicode.com/users/1";
 
@@ -38,30 +40,6 @@ export default function StudentProfile() {
 
   //   fetchStudent();
   // }, []);
-
-  useEffect(() => {
-    setError('');
-    setLoading(true);
-
-    const getUserProfileUrl = `${process.env.REACT_APP_API_BASE_URL}${process.env.REACT_APP_API_GET_USER_PROFILE}`
-
-    api.get(getUserProfileUrl)
-      .then((response) => {
-        console.log(response.data)
-        setStudent({
-          id: response.data.id,
-          name: response.data.name,
-          email: response.data.email,
-          about: ''
-        })
-      })
-      .catch((error) => {
-        setError('Failed to fetch Profile')
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
 
   // if (loading)
   //   return <p className="p-6 text-lg">Loading student data...</p>;
