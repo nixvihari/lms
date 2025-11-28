@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../student/components/Sidebar";
 import Navbar from "../student/components/Navbar";
 
+
 export default function StudentHomepage() {
   return (
     <div className="flex min-h-screen bg-slate-100">
