@@ -12,6 +12,17 @@ import UsersList from "./feature/admin/pages/UsersList";
 import AdminLayout from "./feature/admin/pages/AdminLayout";
 
 
+
+
+import TeacherDashboard from './feature/teacher/TeacherDashboard';
+import TeacherCoursePage from './feature/teacher/TeacherCoursePage';
+import TeacherAssignmentDetail from './feature/teacher/TeacherAssignmentDetail';
+import TeacherAssignments from './feature/teacher/TeacherAssignments';
+import AddCourse from './feature/teacher/AddCourse';
+import TeacherAssignmentReview from "./feature/teacher/TeacherAssignmentReview";
+import CourseList from "./feature/teacher/CourseList";
+import TeacherAssignmentUpload from "./feature/teacher/components/TeacherAssignmentUpload";
+import TeacherProfile from "./feature/teacher/TeacherProfile";
 function App() {
   localStorage.setItem('isLoggedIn', false);
   return (
@@ -28,7 +39,7 @@ function App() {
         <Route path="courses" element={<CoursePage />} />
         <Route path="assignments" element={<Assignments />} />
         <Route path="profile" element={<StudentProfile />} />
-
+        
       </Route>
 
       {/* These pages can stay outside since they are full-page view */}
@@ -36,10 +47,22 @@ function App() {
       <Route path="/assignment/:id" element={<AssignmentDetail />} />
 
 
+      {/* teacher routes */}
+       <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
+        <Route path="/teacher/courses" element={<TeacherCoursePage />} />
+        <Route path="/teacher/assignment/:id" element={<TeacherAssignmentDetail />} />
+        <Route path="/teacher/assignments" element={<TeacherAssignments />} />
+        <Route path="/teacher/add-course" element={<AddCourse />} />
+        <Route path="/teacher/assignments/:id" element={<TeacherAssignmentReview />} />
+        <Route path="/teacher/course/:id" element={<CourseList />} />
+        <Route path="/teacher/assignments/:id/teacherAssignmentUpload" element={<TeacherAssignmentUpload />} />
+        <Route path="/teacher/profile" element={<TeacherProfile />} />
+          
       {/*admin navigatio flow*/}
       <Route path="/admin" element={<AdminLayout />}>
       <Route path="users" element={<UsersList />} />
       </Route>
+
     </Routes>
   );
 }
