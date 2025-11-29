@@ -5,8 +5,9 @@ import api from "../../api/api";
 
 
 export function RegistrationPage() {
+
   const [formData, setFormData] = useState({
-    fullName: "",
+    name: "",
     email: "",
     role: "",
     password: "",
@@ -25,8 +26,7 @@ export function RegistrationPage() {
     { label: "Contains special character", valid: /[!@#$%^&*]/.test(formData.password) },
   ];
 
-
-  const registrationUrl = "/register";
+  const registrationUrl = process.env.REACT_APP_API_USERS_REGISTER;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +37,7 @@ export function RegistrationPage() {
       .then(response => {
         console.log("Successfully registered")
         setFormData({
-          fullName: "",
+          name: "",
           email: "",
           role: "",
           password: "",

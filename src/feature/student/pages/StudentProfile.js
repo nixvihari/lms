@@ -1,54 +1,70 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../../common_components/Loader";
+import useUserProfile from "../../../hooks/useUserProfile";
 
 export default function StudentProfile() {
   const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState(false);
-  const [showContact, setShowContact] = useState(false); 
-  const [student, setStudent] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [showContact, setShowContact] = useState(false);
+  const {student, loading, error} = useUserProfile();
 
-  const API_URL = "https://jsonplaceholder.typicode.com/users/1";
+  // const [student, setStudent] = useState({ id: '', name: '', email: '', about: '' });
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState('');
 
-  useEffect(() => {
-    async function fetchStudent() {
-      try {
-        const response = await fetch(API_URL);
+  // const API_URL = "https://jsonplaceholder.typicode.com/users/1";
 
-        if (!response.ok) throw new Error("Failed to fetch data");
+  // useEffect(() => {
+  //   async function fetchStudent() {
+  //     try {
+  //       const response = await fetch(API_URL);
 
-        const data = await response.json();
+  //       if (!response.ok) throw new Error("Failed to fetch data");
 
-        setStudent({
-          id: data.id || "STU000",
-          name: data.name || "Unknown Student",
-          email: data.email || "noemail@example.com",
-          about:
-            "I am passionate about Web Development, UI/UX Design, and 3D Animation. Always learning and exploring new technologies.",
-        });
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
+  //       const data = await response.json();
 
-    fetchStudent();
-  }, []);
+  //       setStudent({
+  //         id: data.id || "STU000",
+  //         name: data.name || "Unknown Student",
+  //         email: data.email || "noemail@example.com",
+  //         about:
+  //           "I am passionate about Web Development, UI/UX Design, and 3D Animation. Always learning and exploring new technologies.",
+  //       });
+  //     } catch (err) {
+  //       setError(err.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
 
-  if (loading)
-    return <p className="p-6 text-lg">Loading student data...</p>;
+  //   fetchStudent();
+  // }, []);
 
-  if (error)
-    return (
-      <p className="p-6 text-red-600 font-semibold">
-         Error: {error}
-      </p>
-    );
+  // if (loading)
+  //   return <p className="p-6 text-lg">Loading student data...</p>;
+
+  // if (error)
+  //   return (
+  //     <p className="p-6 text-red-600 font-semibold">
+  //       Error: {error}
+  //     </p>
+  //   );
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('userId');
+    localStorage.setItem('isLoggedIn', false);
+
+
+    navigate('/signin');
+  }
 
   return (
+
     <div className="min-h-screen bg-slate-100 py-10 relative">
+      {loading && <Loader />}
 
       {/*BACK BUTTON */}
       {/* <button
@@ -97,6 +113,8 @@ export default function StudentProfile() {
               </p>
             </div>
           )}
+
+          {error && <p style={{color: 'red', textAlign: 'center'}}>{error}</p>}
         </div>
 
         {/* CONTACT SUPPORT */}
@@ -127,7 +145,7 @@ export default function StudentProfile() {
         {/* LOGOUT BUTTON */}
         <div className="text-center">
           <button
-            onClick={() => navigate('/signin') }
+            onClick={handleLogout}
             className="w-full md:w-64 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md"
           >
             Logout
