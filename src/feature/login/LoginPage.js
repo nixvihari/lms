@@ -12,13 +12,15 @@ export function LoginPage() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  
+  const loginEndpoint = process.env.REACT_APP_API_USERS_LOGIN;
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     setLoading(true);
     setError("");
-    api.post("/login", { email, password })
+    api.post(loginEndpoint, { email, password })
       .then(response => {
         console.log("Sign in Successful.");
         localStorage.setItem("token", response.data.token);
