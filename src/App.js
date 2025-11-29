@@ -13,6 +13,7 @@ import AdminLayout from "./feature/admin/pages/AdminLayout";
 
 
 function App() {
+  localStorage.setItem('isLoggedIn', false);
   return (
     <Routes>
 

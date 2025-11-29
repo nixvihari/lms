@@ -12,19 +12,36 @@ export function LoginPage() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  
+  const loginEndpoint = process.env.REACT_APP_API_USERS_LOGIN;
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     setLoading(true);
     setError("");
-    api.post("/login", { email, password })
+    api.post(loginEndpoint, { email, password })
       .then(response => {
         console.log("Sign in Successful.");
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("role", response.data.role);
+        localStorage.setItem("userId", response.data.userId);
+        localStorage.setItem("isLoggedIn", true);
+
         setEmail("");
         setPassword("");
-        navigate('/dashboard', { replace: true });
+
+        if (localStorage.getItem('role') === 'student') {
+          navigate('/student/dashboard', { replace: true });
+        }
+
+        if (localStorage.getItem('role') === 'teacher') {
+          navigate('/teacher/dashboard', { replace: true });
+        }
+
+        if (localStorage.getItem('role') === 'admin') {
+          navigate('/admin/dashboard', { replace: true })
+        }
       })
       .catch(error => {
         setError("Invalid credentials. Failed to sign in.");
