@@ -32,7 +32,13 @@ export default function CourseDetail() {
   const handleEnroll = () => {
     // toggle enroll — in a real app you'd call backend then update state
     // setCourse((prev) => ({ ...prev, isEnrolled: true }));
+    // const temp =  {...data, isEnrolled: true };
+    // const data = temp;
   };
+
+  if(loading) return <Loader/>
+
+  console.log(data);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -112,9 +118,9 @@ export default function CourseDetail() {
             <h2 className="text-2xl font-bold mb-4">What you'll learn</h2>
             <ul className="grid grid-cols-2 gap-4">
 
-              {data.learningObjectives.map((lo) => {
+              {data.learningObjectives && data.learningObjectives.map((lo, index) => {
                 return (
-                  <li>✔ {lo}</li>
+                  <li key={index}>✔ {lo}</li>
                 )
               })}
             </ul>
@@ -125,10 +131,10 @@ export default function CourseDetail() {
         )}
 
         {/* Lessons Component (pass isEnrolled) */}
-        {activeTab === "lessons" && <Lessons courseId={id} isEnrolled={data.isEnrolled} />}
+        {activeTab === "lessons" && <Lessons courseId={data.courseId} isEnrolled={data.isEnrolled} />}
 
         {/* Assignments Component (pass isEnrolled) */}
-        {activeTab === "assignments" && <Assignments courseId={id} isEnrolled={data.isEnrolled} />}
+        {activeTab === "assignments" && <Assignments courseId={data.courseId} isEnrolled={data.isEnrolled} />}
 
       </div>
     </div>

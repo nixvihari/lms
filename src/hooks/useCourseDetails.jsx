@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { getCourseDetails } from "../api/courseService";
 import { useEffect, useState } from "react";
 
@@ -13,7 +12,7 @@ export default function useCourseDetails(courseId) {
         setLoading(true);
         getCourseDetails(courseId)
             .then((response) => {
-                setData(response.data);
+                setData({...response.data, isEnrolled: true});
             })
             .catch((error) => {
                 setError(`Error: ${error.message}. Failed to fetch course Details`)
