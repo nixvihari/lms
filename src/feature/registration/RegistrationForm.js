@@ -76,7 +76,7 @@ export default function RegistrationForm({ formData, setFormData, passwordRules,
 
       <button
         disabled={!passwordRules.every((rule) => rule.valid)}
-        className="w-full h-12 bg-blue-500 hover:bg-blue-600 disabled:opacity-50 text-white rounded-md transition"
+        className="w-full h-12 bg-blue-900 hover:bg-gray-500 disabled:opacity-100 text-white rounded-md transition"
       >
         Create account
       </button>

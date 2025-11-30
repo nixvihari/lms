@@ -11,22 +11,36 @@ export default function Lessons({ courseId, isEnrolled }) {
       });
   }, []);
 
+  const courseMaterials = [
+  "Introduction to Java",
+  "Java Variables and Data Types",
+  "Control Flow and Loops in Java",
+  "Object-Oriented Programming Concepts",
+  "Java Collections Framework",
+  "Spring Boot Project Setup",
+  "REST API Design with Spring Boot",
+  "Database Design and ERD",
+  "React Components and Props",
+  "State Management and Hooks in React"
+];
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-6">Lesson Materials</h2>
 
       <div className="space-y-4">
-        {lessons.map((item) => (
+        {courseMaterials.map((title, index) => (
           <div
-            key={item.id}
+            key={index}
             className="bg-white p-4 rounded shadow flex justify-between items-center"
           >
-            <span>{item.title}.pdf</span>
+            <span>{title}.pdf</span>
 
             {/*Restrict download until enrolled */}
             {isEnrolled ? (
               <a
-                href={item.thumbnail}
+                href={title}
+                target="blank"
                 download
                 className="px-4 py-2 rounded bg-blue-600 text-white"
               >

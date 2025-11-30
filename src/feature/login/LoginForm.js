@@ -31,7 +31,7 @@ export default function LoginForm({ email, setEmail, password, setPassword, hand
       </div>
 
       {/* Submit button */}
-      <button className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white rounded-md">
+      <button className="w-full h-12 bg-blue-900 hover:bg-gray-500 text-white rounded-md transition">
         Sign in
       </button>
     </form>

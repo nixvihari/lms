@@ -4,7 +4,7 @@ export default function Sidebar() {
   const navigate = useNavigate();
 
   return (
-    <div className="w-64 h-screen bg-gradient-to-b from-purple-950 to-purple-900 text-white p-6 space-y-4 shadow-xl">
+    <div className="w-64 h-screen bg-gradient-to-b from-blue-900 to-gray-500 text-white p-6 space-y-4 shadow-xl">
 
       <button
         onClick={() => navigate("/student/dashboard")}

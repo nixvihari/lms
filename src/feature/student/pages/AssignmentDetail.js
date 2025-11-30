@@ -2,6 +2,8 @@ import { useParams, Link } from "react-router-dom";
 import { use, useEffect, useState } from "react";
 import UploadSection from "../components/UploadSection"; 
 import UseAssignmentDetails from "../../../hooks/UseAssignmentDetails";
+import Loader from "../../../common_components/Loader";
+import ErrorMessage from "../../../common_components/ErrorMessage";
 
 export default function AssignmentDetail() {
   const { id } = useParams();
@@ -30,8 +32,8 @@ export default function AssignmentDetail() {
   // if (!assignment) return <p className="p-6">Loading...</p>;
 
   const dueDate = new Date(assignment.dueDate);
- 
-  
+
+  if (loading) return <Loader/>
 
   return (
     <div className=" bg-slate">
@@ -45,6 +47,8 @@ export default function AssignmentDetail() {
           ← Back to Course
         </Link>
       </div>
+
+      {error && <ErrorMessage error={error}/>}
 
       <div className="container mx-auto px-6 py-8 max-w-5xl">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
