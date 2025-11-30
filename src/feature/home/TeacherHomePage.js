@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
-import TeacherSidebar from "../teacher/components/TeacherSidebar";
-import TeacherNavbar from "../teacher/components/TeacherNavbar";
+import Navbar from "../teacher/TeacherNavBar";
+import Sidebar from "../teacher/TeacherSideBar";
+
 
 export default function TeacherHomepage() {
   return (
@@ -8,13 +9,13 @@ export default function TeacherHomepage() {
 
       {/* Sidebar */}
       <div className="hidden md:block fixed left-0 top-0 h-screen">
-        <TeacherSidebar />
+        <Sidebar />
       </div>
 
       <div className="flex-1 flex flex-col">
 
         {/* Navbar */}
-        <TeacherNavbar />
+        <Navbar />
 
         <div className="flex-1 flex flex-col h-full md:ml-64">
 

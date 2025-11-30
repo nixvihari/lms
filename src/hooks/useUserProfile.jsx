@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getUserProfile } from '../api/userService';
 
 export default function useUserProfile() {
