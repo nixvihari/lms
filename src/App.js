@@ -23,6 +23,10 @@ import TeacherAssignmentReview from "./feature/teacher/TeacherAssignmentReview";
 import CourseList from "./feature/teacher/CourseList";
 import TeacherAssignmentUpload from "./feature/teacher/components/TeacherAssignmentUpload";
 import TeacherProfile from "./feature/teacher/TeacherProfile";
+import ProtectedStudentRoute from "./ProtectedRoutes/ProtectedStudentRoute";
+import ProtectedTeacherRoute from "./ProtectedRoutes/ProtectedTeacherRoute";
+import ProtectedAdminRoute from "./ProtectedRoutes/ProtectedAdminRoute";
+import TeacherHomepage from "./feature/home/TeacherHomePage";
 function App() {
   localStorage.setItem('isLoggedIn', false);
   return (
@@ -33,35 +37,119 @@ function App() {
 
        
       {/* Dashboard layout for student */}
-      <Route path="/student" element={<StudentHomepage />}>
+       <Route
+           path="/student"
+           element={
+               <ProtectedStudentRoute>
+                 <StudentHomepage />
+               </ProtectedStudentRoute>
+             }
+        >
+             <Route path="dashboard" element={<StudentDashboard />} />
+             <Route path="courses" element={<CoursePage />} />
+             <Route path="assignments" element={<Assignments />} />
+             <Route path="profile" element={<StudentProfile />} />
+        </Route>
 
-        <Route path="dashboard" element={<StudentDashboard />} />
-        <Route path="courses" element={<CoursePage />} />
-        <Route path="assignments" element={<Assignments />} />
-        <Route path="profile" element={<StudentProfile />} />
+        {/* These pages can stay outside since they are full-page view */}
+        {/* These pages must be OUTSIDE, full-page views */}
+        <Route
+          path="/course/:id"
+          element={
+            <ProtectedStudentRoute>
+              <CourseDetail />
+            </ProtectedStudentRoute>
+          }
+        />
         
-      </Route>
+        <Route
+          path="/assignment/:id"
+          element={
+            <ProtectedStudentRoute>
+              <AssignmentDetail />
+            </ProtectedStudentRoute>
+          }
+        />  
 
-      {/* These pages can stay outside since they are full-page view */}
-      <Route path="/course/:id" element={<CourseDetail />} />
-      <Route path="/assignment/:id" element={<AssignmentDetail />} />
+      
 
 
       {/* teacher routes */}
-       <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
-        <Route path="/teacher/courses" element={<TeacherCoursePage />} />
-        <Route path="/teacher/assignment/:id" element={<TeacherAssignmentDetail />} />
-        <Route path="/teacher/assignments" element={<TeacherAssignments />} />
-        <Route path="/teacher/add-course" element={<AddCourse />} />
-        <Route path="/teacher/assignments/:id" element={<TeacherAssignmentReview />} />
-        <Route path="/teacher/course/:id" element={<CourseList />} />
-        <Route path="/teacher/assignments/:id/teacherAssignmentUpload" element={<TeacherAssignmentUpload />} />
-        <Route path="/teacher/profile" element={<TeacherProfile />} />
+      <Route
+        path="/teacher"
+        element={
+          <ProtectedTeacherRoute>
+            <TeacherHomepage />
+          </ProtectedTeacherRoute>
+        }
+      >
+          <Route path="dashboard" element={<TeacherDashboard/>}/>
+          <Route path="courses" element={<TeacherCoursePage/>}/>
+          <Route path="assignments" element={<TeacherAssignments/>}/>
+          <Route path="profile" element={<TeacherProfile/>}/>
+      </Route>
+      
+      
+      
+      <Route
+        path="/assignment/:id"
+        element={
+          <ProtectedTeacherRoute>
+            <TeacherAssignmentDetail />
+          </ProtectedTeacherRoute>
+        }
+      />
+      
+      
+      <Route
+        path="/add-course"
+        element={
+          <ProtectedTeacherRoute>
+            <AddCourse />
+          </ProtectedTeacherRoute>
+        }
+      />
+      
+      <Route
+        path="/assignments/:id"
+        element={
+          <ProtectedTeacherRoute>
+            <TeacherAssignmentReview />
+          </ProtectedTeacherRoute>
+        }
+      />
+      
+      <Route
+        path="/course/:id"
+        element={
+          <ProtectedTeacherRoute>
+            <CourseList />
+          </ProtectedTeacherRoute>
+        }
+      />
+      
+      <Route
+        path="/teacher/assignments/:id/teacherAssignmentUpload"
+        element={
+          <ProtectedTeacherRoute>
+            <TeacherAssignmentUpload />
+          </ProtectedTeacherRoute>
+        }
+      />
+    
           
       {/*admin navigatio flow*/}
-      <Route path="/admin" element={<AdminLayout />}>
-      <Route path="users" element={<UsersList />} />
+      <Route
+          path="/admin"
+          element={
+              <ProtectedAdminRoute>
+                <AdminLayout />
+              </ProtectedAdminRoute>
+            }
+            >
+          <Route path="users" element={<UsersList />} />
       </Route>
+
 
     </Routes>
   );

@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { getCourseDetails } from "../api/courseService";
 import { useEffect, useState } from "react";
 
