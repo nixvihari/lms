@@ -17,7 +17,7 @@ export default function Sidebar() {
         onClick={() => navigate("/student/courses")}
         className="block w-full text-left p-3 hover:bg-slate-500 rounded"
       >
-        My Courses
+        All Courses
       </button>
 
       <button
