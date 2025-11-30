@@ -33,7 +33,7 @@ export default function RegistrationForm({ formData, setFormData, passwordRules,
         >
           <option value="">Select your role</option>
           <option value="student">Student</option>
-          <option value="teacher">Teacher / Instructor</option>
+          {/* <option value="teacher">Teacher / Instructor</option> */}
         </select>
       </div>
 

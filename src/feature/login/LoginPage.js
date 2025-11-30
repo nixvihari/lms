@@ -40,7 +40,7 @@ export function LoginPage() {
         }
 
         if (localStorage.getItem('role') === 'admin') {
-          navigate('/admin/dashboard', { replace: true })
+          navigate('/admin', { replace: true })
         }
       })
       .catch(error => {
