@@ -40,7 +40,7 @@ export function LoginPage() {
         }
 
         if (localStorage.getItem('role') === 'admin') {
-          navigate('/admin/dashboard', { replace: true })
+          navigate('/admin', { replace: true })
         }
       })
       .catch(error => {
@@ -55,7 +55,7 @@ export function LoginPage() {
     <div className="min-h-screen flex">
 
       {/* LEFT SIDE (same as original) */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-500 to-blue-600 p-12 flex-col justify-center items-center text-white">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-b from-blue-900 to-gray-700 p-12 flex-col justify-center items-center text-white">
         <div className="max-w-md text-center space-y-6">
           <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -66,7 +66,8 @@ export function LoginPage() {
             </svg>
           </div>
 
-          <h1 className="text-3xl font-semibold">Welcome to CloudLMS</h1>
+          <h1 className="text-3xl font-semibold">Welcome to</h1>
+          <h1 className="text-3xl font-semibold">Spark Learning CloudLMS</h1>
           <p className="text-blue-100">Empower your learning journey with our cloud-native LMS.</p>
 
           <img
@@ -91,7 +92,7 @@ export function LoginPage() {
                   d="M12 6V4.5M12 6v13.5m0-13.5H8.25A2.25 2.25 0 006 8.25v10.5M12 6h3.75A2.25 2.25 0 0118 8.25v10.5M6 18.75h12" />
               </svg>
             </div>
-            <span className="text-gray-800 text-xl font-semibold">CloudLMS</span>
+            <span className="text-gray-800 text-xl font-semibold">Spark Learning CloudLMS</span>
           </div>
 
           <div className="space-y-2">

@@ -48,7 +48,7 @@ export default function StudentCalendar() {
               day === new Date().getDate() &&
               month === new Date().getMonth() &&
               year === new Date().getFullYear()
-                ? "bg-blue-600 text-white font-bold"
+                ? "bg-blue-900 text-white font-bold"
                 : "text-slate-700"
             }`}
           >

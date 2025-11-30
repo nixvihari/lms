@@ -11,8 +11,7 @@ export const getCourses = () => {
     return api.get(getCoursesEndpoint);
 }
 
-//react-query
-export const getCourseDetails = async (courseId) => {
-    const res = await api.get(getCourseDetailsEndpoint + '/' + courseId);
+export const getCourseDetails = (courseId) => {
+    const res = api.get(getCourseDetailsEndpoint + '/' + courseId);
     return res;
 };

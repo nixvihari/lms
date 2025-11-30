@@ -1,35 +1,39 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import UploadSection from "../components/UploadSection"; 
+import UseAssignmentDetails from "../../../hooks/UseAssignmentDetails";
+import Loader from "../../../common_components/Loader";
+import ErrorMessage from "../../../common_components/ErrorMessage";
 
 export default function AssignmentDetail() {
   const { id } = useParams();
-  const [assignment, setAssignment] = useState(null);
+  // const [assignment, setAssignment] = useState(null);
+  const {data: assignment, loading, error} = UseAssignmentDetails(id);
 
-  useEffect(() => {
-    fetch(`https://dummyjson.com/products/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setAssignment({
-          id: data.id,
-          title: data.title,
-          courseName: "Web Development Bootcamp",
-          description:
-            data.description +
-            "\n\nDeliverables:\n- Source code\n- Documentation\n- Screenshots",
-          dueDate: "2025-12-05",
-          status: "pending",
-          grade: undefined,
-          thumbnail: data.thumbnail,
-        });
-      });
-  }, [id]);
+  // useEffect(() => {
+  //   fetch(`https://dummyjson.com/products/${id}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setAssignment({
+  //         id: data.id,
+  //         title: data.title,
+  //         courseName: "Web Development Bootcamp",
+  //         description:
+  //           data.description +
+  //           "\n\nDeliverables:\n- Source code\n- Documentation\n- Screenshots",
+  //         dueDate: "2025-12-05",
+  //         status: "pending",
+  //         grade: undefined,
+  //         thumbnail: data.thumbnail,
+  //       });
+  //     });
+  // }, [id]);
 
-  if (!assignment) return <p className="p-6">Loading...</p>;
+  // if (!assignment) return <p className="p-6">Loading...</p>;
 
   const dueDate = new Date(assignment.dueDate);
- 
-  
+
+  if (loading) return <Loader/>
 
   return (
     <div className=" bg-slate">
@@ -43,6 +47,8 @@ export default function AssignmentDetail() {
           ← Back to Course
         </Link>
       </div>
+
+      {error && <ErrorMessage error={error}/>}
 
       <div className="container mx-auto px-6 py-8 max-w-5xl">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -60,7 +66,7 @@ export default function AssignmentDetail() {
                         {assignment.title}
                       </h2>
                     </div>
-                    <p className="text-slate-500">{assignment.courseName}</p>
+                    <p className="text-slate-500">{assignment.description}</p>
                   </div>
                 </div>
               </div>
@@ -81,7 +87,7 @@ export default function AssignmentDetail() {
               </div>
               <div className="p-6">
                 <p className="text-slate-600 whitespace-pre-line">
-                  {assignment.description}
+                  {assignment.instructions}
                 </p>
               </div>
             </div>

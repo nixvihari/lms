@@ -5,13 +5,13 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <div className="sticky top-0 z-50 bg-purple-950 border-b border-slate-200 shadow-sm">
+    <div className="sticky top-0 z-50 bg-blue-900 shadow-sm">
       <div className="relative flex items-center justify-between h-16 px-6">
 
         {/* LEFT SIDE */}
         <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold text-blue-600 tracking-widest">
-            LMS
+          <h1 className="text-2xl font-semibold text-white">
+            Spark Learning CloudLMS
           </h1>
         </div>
 

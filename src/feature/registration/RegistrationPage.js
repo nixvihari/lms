@@ -56,7 +56,7 @@ export function RegistrationPage() {
     <div className="min-h-screen flex overflow-hidden">
 
       {/* LEFT SIDE (Exactly same as your original UI) */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-500 to-blue-600 p-12 flex-col justify-center items-center text-white">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-b from-blue-900 to-gray-700 p-12 flex-col justify-center items-center text-white">
         <div className="max-w-md space-y-6 text-center">
 
           <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto">
@@ -75,7 +75,8 @@ export function RegistrationPage() {
             </svg>
           </div>
 
-          <h1 className="text-3xl font-semibold">Start Your Learning Journey</h1>
+          <h1 className="text-white text-3xl font-semibold">Spark Learning CloudLMS</h1>
+          <h1 className="text-xl font-semibold">Start Your Learning Journey</h1>
           <p className="text-blue-100">
             Join thousands of students and teachers using CloudLMS.
           </p>
@@ -87,7 +88,7 @@ export function RegistrationPage() {
               ["1,000+", "Courses"],
               ["4.9/5", "Average Rating"],
             ].map(([value, label], i) => (
-              <div key={i} className="bg-white/10 rounded-xl p-6 backdrop-blur">
+              <div key={i} className="bg-white/30 rounded-xl p-6 backdrop-blur">
                 <div className="text-white">{value}</div>
                 <p className="text-blue-100 mt-1">{label}</p>
               </div>

@@ -28,7 +28,6 @@ import ProtectedTeacherRoute from "./ProtectedRoutes/ProtectedTeacherRoute";
 import ProtectedAdminRoute from "./ProtectedRoutes/ProtectedAdminRoute";
 import TeacherHomepage from "./feature/home/TeacherHomePage";
 function App() {
-  localStorage.setItem('isLoggedIn', false);
   return (
     <Routes>
 
@@ -92,7 +91,7 @@ function App() {
       
       
       <Route
-        path="/assignment/:id"
+        path="teacher/assignment/:id"
         element={
           <ProtectedTeacherRoute>
             <TeacherAssignmentDetail />
@@ -102,7 +101,7 @@ function App() {
       
       
       <Route
-        path="/add-course"
+        path="teacher/add-course"
         element={
           <ProtectedTeacherRoute>
             <AddCourse />
@@ -111,7 +110,7 @@ function App() {
       />
       
       <Route
-        path="/assignments/:id"
+        path="teacher/assignments/:id"
         element={
           <ProtectedTeacherRoute>
             <TeacherAssignmentReview />
@@ -120,7 +119,7 @@ function App() {
       />
       
       <Route
-        path="/course/:id"
+        path="teacher/course/:id"
         element={
           <ProtectedTeacherRoute>
             <CourseList />

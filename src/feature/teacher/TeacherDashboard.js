@@ -5,6 +5,11 @@ export default function TeacherDashboard() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('isLoggedIn');
+
     alert("You have been logged out!");
     navigate("/signin"); // Navigate to Sign-In page
   };
