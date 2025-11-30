@@ -41,7 +41,7 @@ export default function AssignmentDetail() {
       {/* Header */}
       <div className="bg-white border-b border-slate-200 px-6 py-4">
         <Link
-          to={`/course/${id}`}
+          to={`/course/${assignment.courseId}`}
           className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors"
         >
           ← Back to Course
