@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAddCourse from "../../hooks/useAddCourse";
+import Loader from '../../common_components/Loader';
+import { addCourse } from "../../api/courseService";
+import ErrorMessage from '../../common_components/ErrorMessage';
 
 export default function AddCourse() {
   const [title, setTitle] = useState("");
@@ -7,16 +11,35 @@ export default function AddCourse() {
   const [file, setFile] = useState(null);   // ✅ new state for file
   const navigate = useNavigate();
 
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Normally you'd POST to backend here
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    if (file) {
-      formData.append("file", file);
-    }
+    const formData = { title, description, courseDuration: 25, learningObjectives: [] };
+
+    setError('');
+    setLoading('true');
+
+    addCourse(formData)
+      .then((response) => {
+        console.log('Course Added: ', response.data);
+        setData(response.data);
+      })
+      .catch((error) => {
+        setError('Error: Failed to add course. ' + error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+
+
+    // if (file) {
+    //   formData.append("file", file);
+    // }
 
     // Example: send to backend
     // fetch("/api/courses", {
@@ -24,7 +47,7 @@ export default function AddCourse() {
     //   body: formData,
     // });
 
-    console.log("New Course:", { title, description, file });
+    console.log("New Course:", data.title, data.description);
 
     // Redirect back to course catalog
     navigate("/teacher/courses");
@@ -32,6 +55,10 @@ export default function AddCourse() {
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
+
+      {loading && <Loader />}
+      {error && <ErrorMessage error={error} />}
+
       <h1 className="text-2xl font-bold mb-4">Add New Course</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -49,12 +76,12 @@ export default function AddCourse() {
         />
 
         {/* ✅ File Upload */}
-        <input
+        {/* <input
           type="file"
           accept=".pdf,.jpg,.jpeg,.png"   // restrict to pdf/jpg/png
           onChange={(e) => setFile(e.target.files[0])}
           className="w-full p-2 border rounded"
-        />
+        /> */}
 
         <button
           type="submit"
