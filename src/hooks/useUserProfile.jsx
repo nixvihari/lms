@@ -26,5 +26,5 @@ export default function useUserProfile() {
             });
     }, []);
 
-    return { student, loading, error };
+    return { student , loading, error };
 }
