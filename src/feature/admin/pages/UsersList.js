@@ -2,6 +2,8 @@ import { useState, useMemo } from "react";
 import UsersTable from "../components/UsersTable";
 import AddTeacherForm from "../components/AddTeacherForm";
 import useUsers from "../../../hooks/useUsers";
+import Loader from '../../../common_components/Loader';
+import ErrorMessage from '../../../common_components/ErrorMessage';
 
 export default function UsersList() {
   const { users, loading, error, setUsers } = useUsers();
@@ -34,11 +36,14 @@ export default function UsersList() {
     }
   };
 
-  if (loading) return <p className="text-center p-4">Loading users...</p>;
-  if (error) return <p className="text-red-500 text-center p-4">{error}</p>;
+  if (loading) return <Loader/>
+  // if (error) return <p className="text-red-500 text-center p-4">{error}</p>;
 
   return (
     <div className="p-2 w-full">
+
+      {error && <ErrorMessage error={error} />}
+      
       <div className="text-center text-3xl font-semibold py-4 mt-1">
         USERS
       </div>
