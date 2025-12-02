@@ -12,7 +12,7 @@ export default function useCourseDetails(courseId) {
         setLoading(true);
         getCourseDetails(courseId)
             .then((response) => {
-                setData({...response.data, isEnrolled: true});
+                setData(response.data);
             })
             .catch((error) => {
                 setError(`Error: ${error.message}. Failed to fetch course Details`)
@@ -22,5 +22,5 @@ export default function useCourseDetails(courseId) {
             });
     }, [courseId]);
 
-    return { data, loading, error };
+    return { data, loading, error, setData };
 }

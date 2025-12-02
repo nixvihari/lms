@@ -4,6 +4,7 @@ import Loader from "../../../common_components/Loader";
 import ErrorMessage from "../../../common_components/ErrorMessage";
 import useAddCourse from "../../../hooks/useAddCourse";
 import { addAssignment } from "../../../api/assignmentService";
+import { useNavigate } from "react-router-dom";
 
 export default function TeacherAssignmentUpload() {
   const [courseId, setCourseId] = useState(1);
@@ -16,6 +17,8 @@ export default function TeacherAssignmentUpload() {
 
   const [submitLoading, setSubmitLoading] = useState(false);
   const [submitError, setSubmitError] = useState('');
+
+  const navigate = useNavigate();
 
 
   const handleSubmit = (e,) => {
@@ -34,7 +37,15 @@ export default function TeacherAssignmentUpload() {
       .finally(() => {
         setSubmitLoading(false);
       });
+    
+      alert(`New Assignment "${title}" successfully added.`);
+      setCourseId('');
+      setTitle('');
+      setDueDate('');
+      setDescription('');
+      setInstructions('');
 
+      navigate('/teacher/assignments');
   }
 
   if (loading) return <Loader />
