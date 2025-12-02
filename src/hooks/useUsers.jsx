@@ -17,18 +17,18 @@ export default function useUsers() {
           id: u.id,
           name: u.name,
           email: u.email,
-          role: u.role,
+          role: u.role.toUpperCase(),
         }));
         
         setUsers(formatted);
       })
-      .catch(() => {
-        setError("Failed to fetch users");
+      .catch((error) => {
+        setError("Failed to fetch users" + error.message);
       })
       .finally(() => {
         setLoading(false);
       });
   }, []);
 
-  return { users, loading, error, setUsers };
+  return { users, loading, error };
 }
