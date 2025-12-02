@@ -5,13 +5,17 @@ import Assignments from "../components/Assignments";
 import useCourseDetails from "../../../hooks/useCourseDetails";
 import Loader from "../../../common_components/Loader";
 import ErrorMessage from "../../../common_components/ErrorMessage";
+import { enrollForCourse } from "../../../api/courseService";
 
 export default function CourseDetail() {
   const { id } = useParams();
   // const [course, setCourse] = useState(null);
   const [activeTab, setActiveTab] = useState("overview");
 
-  const { data, loading, error } = useCourseDetails(id);
+  const { data, loading, error, setData } = useCourseDetails(id);
+
+  const [loadingEnroll, setLoadingEnroll] = useState(false);
+  const [enrollError, setEnrollError] = useState('');
 
   // useEffect(() => {
   //   fetch("https://dummyjson.com/products")
@@ -30,13 +34,29 @@ export default function CourseDetail() {
   // if (!course) return <p className="p-6">Loading...</p>;
 
   const handleEnroll = () => {
+
+    setEnrollError('');
+    setLoadingEnroll(true);
+    enrollForCourse(id)
+    .then((response) => {
+      console.log("Successfully Enrolled for course");
+      if (response.data) {
+        setData(response.data);
+      }
+    })
+    .catch((error) => {
+      setEnrollError("Failed to enroll for course with error: " + error.message);
+    })
+    .finally(() => {
+      setLoadingEnroll(false);
+    })
     // toggle enroll — in a real app you'd call backend then update state
     // setCourse((prev) => ({ ...prev, isEnrolled: true }));
     // const temp =  {...data, isEnrolled: true };
     // const data = temp;
   };
 
-  if(loading) return <Loader/>
+  if (loading) return <Loader />
 
   console.log(data);
 
@@ -96,8 +116,8 @@ export default function CourseDetail() {
               key={tab}
               onClick={() => !isDisabled && setActiveTab(tab)}
               className={`pb-2 text-lg ${activeTab === tab && !isDisabled
-                  ? "font-semibold border-b-2 border-black text-black"
-                  : "text-gray-400"
+                ? "font-semibold border-b-2 border-black text-black"
+                : "text-gray-400"
                 } ${isDisabled ? "opacity-40 cursor-not-allowed" : ""}`}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -114,7 +134,7 @@ export default function CourseDetail() {
         {/* Overview Section */}
         {activeTab === "overview" && (
           <div>
-            {error && ErrorMessage({error})}
+            {error && ErrorMessage({ error })}
             <h2 className="text-2xl font-bold mb-4">What you'll learn</h2>
             <ul className="grid grid-cols-2 gap-4">
 
