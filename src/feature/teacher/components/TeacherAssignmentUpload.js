@@ -6,7 +6,7 @@ import useAddCourse from "../../../hooks/useAddCourse";
 import { addAssignment } from "../../../api/assignmentService";
 
 export default function TeacherAssignmentUpload() {
-  const [courseId, setCourseId] = useState('');
+  const [courseId, setCourseId] = useState(1);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
@@ -21,6 +21,7 @@ export default function TeacherAssignmentUpload() {
   const handleSubmit = (e,) => {
     e.preventDefault();
 
+    console.log(courseId);
     setSubmitError('');
     setSubmitLoading(true);
     addAssignment({ courseId, title, description, dueDate, instructions })
@@ -54,7 +55,7 @@ export default function TeacherAssignmentUpload() {
               className="block w-full rounded-md border rounded shadow-sm focus:border-blue-500 focus:ring-blue-500 text-gray-700 p-2"
               name="course-dropdown"
               value={courseId}
-              onChange={e => setCourseId(e.target.value)}
+              onChange={e => setCourseId(Number(e.target.value))}
             >
               {courses && courses.map(course => {
                 return <option key={course.id} value={course.id}>{course.title}</option>
